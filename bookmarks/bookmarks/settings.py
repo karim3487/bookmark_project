@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-a#-d$a+-uqj3s7&c+##&0+2n)pjj2x5=96zei$355=nh=!ijyo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bookmarks-site.com", "localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "social_django",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,22 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "account.authentication.EmailAuthBackend",
+    "social_core.backends.facebook.FacebookOAuth2",
+    "social_core.backends.google.GoogleOAuth2",
+    "social_core.backends.vk.VKOAuth2",
+]
+
+SOCIAL_AUTH_PIPELINE = [
+    "social_core.pipeline.social_auth.social_details",
+    "social_core.pipeline.social_auth.social_uid",
+    "social_core.pipeline.social_auth.auth_allowed",
+    "social_core.pipeline.social_auth.social_user",
+    "social_core.pipeline.user.get_username",
+    "social_core.pipeline.user.create_user",
+    "account.authentication.create_profile",
+    "social_core.pipeline.social_auth.associate_user",
+    "social_core.pipeline.social_auth.load_extra_data",
+    "social_core.pipeline.user.user_details",
 ]
 
 ROOT_URLCONF = "bookmarks.urls"
@@ -132,3 +150,14 @@ LOGOUT_URL = "logout"
 # Media setting
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# OAuth 2.0 Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = "319875174373370"
+SOCIAL_AUTH_FACEBOOK_SECRET = "57678749dbb26e9b0f7fdadd8975f04a"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
+
+# OAuth 2.0 Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
+    "437299324037-t0ju9tdtaakpp8kgjodbc5c1o7u887uh.apps.googleusercontent.com"
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"

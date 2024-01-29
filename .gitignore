@@ -16,6 +16,8 @@
 # *.iml
 # *.ipr
 .idea
+**/*.key
+**/*.crt
 
 # CMake
 cmake-build-*/
