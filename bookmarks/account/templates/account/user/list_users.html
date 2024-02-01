@@ -1,0 +1,13 @@
+{% load thumbnail %}
+{% for user in users %}
+    <div class="user">
+        <a href="{{ user.get_absolute_url }}">
+            {% with '//'|add:request.get_host|add:"/static"|add:"/images/user-default.png" as path %}
+                <img src="{% if user.profile.photo %}{% thumbnail user.profile.photo 180x180 crop="," %}{% else %}{{ path }}{% endif %}">
+            {% endwith %}
+        </a>
+        <div class="info">
+            <a href="{{ user.get_absolute_url }}" class="title"> {{ user.get_full_name }}
+            </a></div>
+    </div>
+{% endfor %}
