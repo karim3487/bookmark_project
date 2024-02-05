@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django_extensions",
     "images.apps.ImagesConfig",
     "easy_thumbnails",
+    "actions.apps.ActionsConfig",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -123,6 +126,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -170,3 +177,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
 ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda u: reverse_lazy("user_detail", args=[u.username])
 }
+
+# Redis configurate
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 0
