@@ -10,9 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import json
+import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-a#-d$a+-uqj3s7&c+##&0+2n)pjj2x5=96zei$355=nh=!ijyo"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,15 +169,17 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # OAuth 2.0 Facebook
-SOCIAL_AUTH_FACEBOOK_KEY = "319875174373370"
-SOCIAL_AUTH_FACEBOOK_SECRET = "57678749dbb26e9b0f7fdadd8975f04a"
-SOCIAL_AUTH_FACEBOOK_SCOPE = ["email"]
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get("SOCIAL_AUTH_FACEBOOK_KEY")
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get("SOCIAL_AUTH_FACEBOOK_SECRET")
+SOCIAL_AUTH_FACEBOOK_SCOPE = json.loads(
+    os.environ.get(
+        "SOCIAL_AUTH_FACEBOOK_SCOPE", '["Please, set SOCIAL_AUTH_FACEBOOK_SCOPE"]'
+    )
+)
 
 # OAuth 2.0 Google
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
-    "437299324037-t0ju9tdtaakpp8kgjodbc5c1o7u887uh.apps.googleusercontent.com"
-)
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 # Setup user detail url
 ABSOLUTE_URL_OVERRIDES = {
